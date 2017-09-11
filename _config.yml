@@ -3,11 +3,12 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle:
-description:
-author: John Doe
-language:
+title: 慎独
+subtitle: 感性是神圣的天赋，理性则像忠诚的仆人。
+description: 欲语还休
+author: 慎独
+language: 
+- zh-cn
 timezone:
 
 # URL
@@ -42,7 +43,7 @@ highlight:
   line_number: true
   auto_detect: false
   tab_replace:
-  
+
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
 # per_page: Posts displayed per page. (0 = disable pagination)
@@ -53,10 +54,21 @@ index_generator:
   order_by: -date
   
 # Category & Tag
-default_category: uncategorized
+default_category: 前端
 category_map:
+  前端: big-front-end
+  闲谈: chat
+  设计: design
+  资源: resource
 tag_map:
-
+  工具: tools
+  视觉: version
+  编程: coding
+  设计: design
+  JavaScript: JavaScript
+  CSS: CSS
+  gulp: gulp  
+  
 # Date / Time format
 ## Hexo uses Moment.js to parse and display date
 ## You can customize the date format as defined in
@@ -72,7 +84,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: jsimple
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
