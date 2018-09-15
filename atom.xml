@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>慎独</title>
+  
+  <subtitle>感性是神圣的天赋，理性则像忠诚的仆人。</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2017-11-04T08:47:39.084Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>慎独</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MongoDB安装</title>
+    <link href="http://yoursite.com/2017/09/27/MongoDB%E5%AE%89%E8%A3%85/"/>
+    <id>http://yoursite.com/2017/09/27/MongoDB安装/</id>
+    <published>2017-09-27T12:35:57.000Z</published>
+    <updated>2017-11-04T08:47:39.084Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="下载MongoDB"><a href="#下载MongoDB" class="headerlink" title="下载MongoDB"></a>下载MongoDB</h2><p>废话不多说，上地址<a href="https://www.mongodb.com/download-center?ct=false#community" target="_blank" rel="external">点这里</a>。</p><h2 id="安装MongoDB"><a href="#安装MongoDB" class="headerlink" title="安装MongoDB"></a>安装MongoDB</h2><p>双击打开安装包，一路next，知道选择安装方式时，建议可以选择“Custom”模式自定义,系统默认安装路径是<code>C:\Program Files\MongoDB\Server\3.4\</code>，这里个人习惯就更改为<code>D:\Program Files\MongoDB\Server\3.4\</code>了，继续next，直至完成。<br><em>这里有另一个建议，就是直接在根目录下安装，即：<code>D\MongoDB\</code>，这个一会儿下面会提到</em></p><h2 id="创建数据存放目录"><a href="#创建数据存放目录" class="headerlink" title="创建数据存放目录"></a>创建数据存放目录</h2><p><strong><em>MongoDB将数据目录存储在 db 目录下。但是这个数据目录不会主动创建，我们在安装完成后需要创建它。请注意，数据目录应该放在根目录下（(如： C:\ 或者 D:\ 等 )。</em></strong>上面的说明摘抄于<a href="http://www.runoob.com/mongodb/mongodb-window-install.html" target="_blank" rel="external">菜鸟教程</a>,在网上找了很久，一直不明白为什么强调要将数据存储目录创建在根目录下，或许是考虑要提高数据交互效率？较少路径索引所消耗的时间？</p><p>鉴于刚才我已经把MongoDB安装在<code>D:\Program Files\MongoDB\Server\3.4\</code>路径下，所以我创建的数据目录为<code>D:\Program Files\MongoDB\Server\3.4\data\db</code>，同时，我还创建了一个日志目录，并新建了个空文件MongoDB.log，用于存放软件运行中的日志文件<code>D:\Program Files\MongoDB\Server\3.4\data\log\MongoDB.log</code></p><h2 id="运行MongoDB"><a href="#运行MongoDB" class="headerlink" title="运行MongoDB"></a>运行MongoDB</h2><p>在安装目录的bin\目录（<code>D:\Program Files\MongoDB\Server\3.4\bin\</code>）中打开命令工具,运行以下代码：<br><code>mongod --dbpath D:\Program Files\MongoDB\Server\3.4\data\db</code><br><em>dbpath后面的存储路径以你的实际安装路径为准</em></p><p>命令行出现相应的信息，即正常运行。</p><h2 id="将MongoDB作为Windows服务运行"><a href="#将MongoDB作为Windows服务运行" class="headerlink" title="将MongoDB作为Windows服务运行"></a>将MongoDB作为Windows服务运行</h2><table><thead><tr><th>参数</th><th style="text-align:left">描述                                                                    </th></tr></thead><tbody><tr><td>–bind_ip</td><td style="text-align:left">绑定服务IP，若绑定127.0.0.1，则只能本机访问，不指定默认本地所有IP    </td></tr><tr><td>–logpath</td><td style="text-align:left">定MongoDB日志文件，注意是指定文件不是目录                            </td></tr><tr><td>–logappend</td><td style="text-align:left">使用追加的方式写日志                                                </td></tr><tr><td>–dbpath</td><td style="text-align:left">指定数据库路径                                                        </td></tr><tr><td>–port</td><td style="text-align:left">指定服务端口号，默认端口27017                                        </td></tr><tr><td>–serviceName</td><td style="text-align:left">指定服务名称                                                        </td></tr><tr><td>–serviceDisplayName</td><td style="text-align:left">指定服务名称，有多个mongodb服务时执行。                                </td></tr><tr><td>–install</td><td style="text-align:left">指定作为一个Windows服务安装。                                        </td></tr></tbody></table><p><strong><em>在管理员下</em></strong>执行以下命令：</p><p><code>mongod.exe --logpath &quot;D:\Program Files\MongoDB\Server\3.4\data\log\MongoDB.log&quot; --logappend --dbpath &quot;D:\Program Files\MongoDB\Server\3.4\data\db&quot;  --serviceName &quot;YourServiceName&quot; --serviceDisplayName &quot;YourServiceName&quot; --install</code></p><p>以上的<em>YourServiceName</em>是由你自定义的服务名称。</p><h2 id="小技巧"><a href="#小技巧" class="headerlink" title="小技巧"></a>小技巧</h2><p>在网上也有看到有人创建了一个mongodb.conf文件，将各个配置放在这个文件中，最后执行<code>mongod --config &quot;Your mongodb.conf address&quot;</code>和<code>mongod --config &quot;Your mongodb.conf address&quot; --serviceName &quot;YourServiceName&quot; --serviceDisplayName &quot;YourServiceName&quot; --install</code></p><p>这种方法看着更容易理解，也方便配置，对于不擅长敲命令行的小伙伴们还是挺不错的选择，不过我自己还没试过。</p><h2 id="再次以windows服务方式运行MongoDB"><a href="#再次以windows服务方式运行MongoDB" class="headerlink" title="再次以windows服务方式运行MongoDB"></a>再次以windows服务方式运行MongoDB</h2><p>随便打开命令窗口：</p><p><code>net start MongoDB</code></p><p><em>MongoDB即是你刚才设置的服务名称</em></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;下载MongoDB&quot;&gt;&lt;a href=&quot;#下载MongoDB&quot; class=&quot;headerlink&quot; title=&quot;下载MongoDB&quot;&gt;&lt;/a&gt;下载MongoDB&lt;/h2&gt;&lt;p&gt;废话不多说，上地址&lt;a href=&quot;https://www.mongodb.com/
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>sublime使用常见问题</title>
+    <link href="http://yoursite.com/2017/09/19/sublime%E4%BD%BF%E7%94%A8%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/"/>
+    <id>http://yoursite.com/2017/09/19/sublime使用常见问题/</id>
+    <published>2017-09-19T07:51:19.000Z</published>
+    <updated>2017-11-04T08:47:39.099Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Package-install-包管理安装失败"><a href="#Package-install-包管理安装失败" class="headerlink" title="Package install 包管理安装失败"></a>Package install 包管理安装失败</h3><p>sublime使用中，时常因为网络问题，导致Package install安装失败，程序提示：there are no packages for installation<br>导致插件无法正常获取安装。解决方案如下：</p><ol><li><p>打开命令提示符，输入<code>ping sublime.wbond.net</code>回车，此处ping通<a href="https://packagecontrol.io/" target="_blank" rel="external">sublime.wbond.net</a>获取网站ip地址，（访问 :sublime.wbond.net后你会发现，其实就映射到了: packagecontrol.io）<br>上述操作后，我得到的地址是：[50.116.33.29]</p></li><li><p>修改hosts指向。在电脑中找到hosts文件，路径<code>C:\Windows\System32\drivers\etc\</code> 使用编辑器打开，在最后新增一行：        </p><pre><code>50.116.33.29  sublime.wbond.net</code></pre></li><li><p>保存hosts文件，重启sublime即可。</p></li></ol><h3 id="关于sublime中编写Vue组件时，文档的格式化工具"><a href="#关于sublime中编写Vue组件时，文档的格式化工具" class="headerlink" title="关于sublime中编写Vue组件时，文档的格式化工具"></a>关于sublime中编写Vue组件时，文档的格式化工具</h3><p>当我们开发vue.js的相关程序时，严格的eslint要求编码规则需完全符合才能正常运行vue工程，网上搜了一下，也没有发现合适的sublime插件专门用于格式化vue文件，后面找到一个方法：</p><p><strong><em>配置<code>HTML/CSS/JS Prettify</code>插件</em></strong><br>正常前端开发html/js都会安装HTML/CSS/JS Prettify插件，我们仅需在原有基础上，增加一些配置，即可支持vue文件格式化。</p><ol><li><p>打开sublime的tools菜单，选择HTML/CSS/JS Prettify插件，选择Plugin Options（网上给的方案是选择prettify preference，但我并未在该配置文件里找到可配置项）</p></li><li><p>打开默认配置文件，或者你可以打开用户配置，找到”global_file_rules”这一项，你会发现有html/js/css/json等格式化规则（这些规则可在prettify preference里调整），每个规则会有对应”allowed_file_extensions”，表示规则支持的文件拓展类型。</p></li><li><p>将”vue”添加进刚才的”allowed_file_extensions”,这里我在html/js均添加了对vue文件的支持，大家可以自己决定。</p></li></ol><p>至此，在vue文件中执行HTML/CSS/JS Prettify也可以完成对代码的格式化了。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;Package-install-包管理安装失败&quot;&gt;&lt;a href=&quot;#Package-install-包管理安装失败&quot; class=&quot;headerlink&quot; title=&quot;Package install 包管理安装失败&quot;&gt;&lt;/a&gt;Package install 包
+      
+    
+    </summary>
+    
+      <category term="前端" scheme="http://yoursite.com/categories/big-front-end/"/>
+    
+    
+      <category term="工具" scheme="http://yoursite.com/tags/tools/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>gulp常用插件集合</title>
+    <link href="http://yoursite.com/2017/09/12/gulp%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6%E9%9B%86%E5%90%88/"/>
+    <id>http://yoursite.com/2017/09/12/gulp常用插件集合/</id>
+    <published>2017-09-12T00:56:51.000Z</published>
+    <updated>2017-11-04T08:47:39.099Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="gulp-jshint-js语法检测"><a href="#gulp-jshint-js语法检测" class="headerlink" title="gulp-jshint js语法检测"></a>gulp-jshint js语法检测</h2><pre><code>var jshint = require(&apos;gulp-jshint&apos;);</code></pre><h2 id="gulp-jshint-html语法检测"><a href="#gulp-jshint-html语法检测" class="headerlink" title="gulp-jshint html语法检测"></a>gulp-jshint html语法检测</h2><pre><code>var htmlhint = require(&apos;gulp-htmlhint&apos;);</code></pre><h2 id="gulp-less-less编译"><a href="#gulp-less-less编译" class="headerlink" title="gulp-less less编译"></a>gulp-less less编译</h2><pre><code>var less = require(&apos;gulp-less&apos;);</code></pre><h2 id="gulp-rename-文件重命名"><a href="#gulp-rename-文件重命名" class="headerlink" title="gulp-rename 文件重命名"></a>gulp-rename 文件重命名</h2><pre><code>var rename = require(&apos;gulp-rename&apos;);</code></pre><h2 id="gulp-file-include-文件、代码段插入"><a href="#gulp-file-include-文件、代码段插入" class="headerlink" title="gulp-file-include 文件、代码段插入"></a>gulp-file-include 文件、代码段插入</h2><pre><code>var fileinclude = require(&apos;gulp-file-include&apos;);gulp.task(&apos;fileinclude&apos;, function() {    gulp.src(&apos;./src/*.html&apos;)        .pipe(fileinclude({            prefix: &apos;&lt;!--IEhack@&apos;,//标签语法前缀            suffix: &apos;--&gt;&apos;,//标签语法后缀，最终在文档完整标签为：&lt;!--IEhack@include(&apos;./include/IEhack.html&apos;)--&gt;            basepath: &apos;@file&apos;,//插入文件地址            indent: true        }))        .pipe(gulp.dest(&apos;dist&apos;));});</code></pre><h2 id="gulp-inject-html中插入js-css"><a href="#gulp-inject-html中插入js-css" class="headerlink" title="gulp-inject html中插入js/css"></a>gulp-inject html中插入js/css</h2><pre><code>var inject = require(&apos;gulp-inject&apos;); gulp.task(&apos;inject&apos;, function() {    gulp.src(&apos;./src/*.html&apos;)        .pipe(inject(gulp.src([&apos;./src/js/lib/require.js&apos;], { reda: false }), { starttag: &apos;&lt;!-- inject:require:{{ext}} --&gt;&apos;, relative: true }))//最终在文档展示:&lt;!-- inject:base:css --&gt;        .pipe(gulp.dest(&apos;dist&apos;));});</code></pre><h2 id="gulp-clean-css-css压缩"><a href="#gulp-clean-css-css压缩" class="headerlink" title="gulp-clean-css css压缩"></a>gulp-clean-css css压缩</h2><pre><code>var cssmin = require(&apos;gulp-clean-css&apos;);gulp.task(&apos;cssmin&apos;, function() {    return gulp.src(&apos;./src/css/*css&apos;)        .pipe(cssmin({            compatibility: &apos;ie8&apos; //兼容至ie8模式，默认compatibility: &apos;*&apos; Internet Explorer 10+兼容模式            debug: true //启用日志打出到控制台        }))        .pipe(gulp.dest(&apos;./public/css&apos;));})</code></pre><p>更多详细配置可查看<a href="https://github.com/jakubpawlowicz/clean-css#how-to-use-clean-css-api" target="_blank" rel="external">gulp-clean-css</a></p><h2 id="gulp-base64-零碎图片转base64格式图片"><a href="#gulp-base64-零碎图片转base64格式图片" class="headerlink" title="gulp-base64 零碎图片转base64格式图片"></a>gulp-base64 零碎图片转base64格式图片</h2><pre><code>var base64 = require(&apos;gulp-base64&apos;);gulp.task(&apos;base64&apos;, function() {    return gulp.src(&apos;./src/css/*css&apos;)        .pipe(base64({            baseDir: &apos;public&apos;, //当样式表中有绝对路径的图片，则baseDir将被指定为该路径的根目录（相对于gulpfile文件）            extensions: [&apos;svg&apos;, &apos;png&apos;, /\.jpg#datauri$/i], //希望转化的图片格式，支持扩展名或正则匹配            exclude: [/\.server\.(com|net)\/dynamic\//, &apos;--live.jpg&apos;], //与extensions不同，此设置项将跳过与此匹配的图片，不转化            maxImageSize: 8 * 1024, // 设置转化图片的阈值，计量单位:bytes             debug: true //启用日志打出到控制台        }))        .pipe(gulp.dest(&apos;./public/css&apos;));})</code></pre><h2 id="gulp-imagemin-图片压缩"><a href="#gulp-imagemin-图片压缩" class="headerlink" title="gulp-imagemin 图片压缩"></a>gulp-imagemin 图片压缩</h2><pre><code>var imagemin = require(&apos;gulp-imagemin&apos;);gulp.task(&apos;imagemin&apos;, function() {    return gulp.src(&apos;./src/images/*&apos;)        .pipe(imagemin())        .pipe(gulp.dest(&apos;./public/images&apos;));})</code></pre><h2 id="gulp-changed-只操作有过修改的文件"><a href="#gulp-changed-只操作有过修改的文件" class="headerlink" title="gulp-changed 只操作有过修改的文件"></a>gulp-changed 只操作有过修改的文件</h2><pre><code>var changed  = require(&apos;gulp-changed&apos;);gulp.task(&apos;imagemin &apos;, function() {    return gulp.src(&apos;./src/images/*&apos;)        .pipe(changed (&apos;./public/images&apos;))//与输入目录文件对比，若无差异则不再处理        .pipe(imagemin())//此处使用图片压缩工作流做例子        .pipe(gulp.dest(&apos;./public/images&apos;));})</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;gulp-jshint-js语法检测&quot;&gt;&lt;a href=&quot;#gulp-jshint-js语法检测&quot; class=&quot;headerlink&quot; title=&quot;gulp-jshint js语法检测&quot;&gt;&lt;/a&gt;gulp-jshint js语法检测&lt;/h2&gt;&lt;pre&gt;&lt;cod
+      
+    
+    </summary>
+    
+      <category term="前端" scheme="http://yoursite.com/categories/big-front-end/"/>
+    
+    
+      <category term="gulp" scheme="http://yoursite.com/tags/gulp/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用Hexo和GitHub搭建个人博客</title>
+    <link href="http://yoursite.com/2017/09/11/%E4%BD%BF%E7%94%A8Hexo%E5%92%8CGitHub%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://yoursite.com/2017/09/11/使用Hexo和GitHub搭建个人博客/</id>
+    <published>2017-09-11T13:32:57.000Z</published>
+    <updated>2017-11-04T08:47:39.099Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="基础配置"><a href="#基础配置" class="headerlink" title="基础配置"></a>基础配置</h2><h3 id="创建对应仓库"><a href="#创建对应仓库" class="headerlink" title="创建对应仓库"></a>创建对应仓库</h3><p>在自己的GitHub账号下创建一个新的仓库，命名为<em>username</em>.github.io（username是你的github账号名)</p><p>在这里，要知道，GitHub Pages有两种类型：User/Organization Pages 和 Project Pages，而我所使用的是User Pages。</p><p>简单来说，User Pages 与 Project Pages的区别是：</p><ul><li>User Pages 是用来展示用户的，而 Project Pages 是用来展示项目的。</li><li>用于存放 User Pages 的仓库必须使用username.github.io的命名规则，而 Project Pages 则没有特殊的要求。</li><li>User Pages 将使用仓库的 master 分支，而 Project Pages 将使用 gh-pages 分支。</li><li>User Pages 通过 http(s)://username.github.io 进行访问，而 Projects Pages通过 http(s)://username.github.io/projectname 进行访问。</li></ul><h3 id="工具安装"><a href="#工具安装" class="headerlink" title="工具安装"></a>工具安装</h3><h3 id="Git安装"><a href="#Git安装" class="headerlink" title="Git安装"></a>Git安装</h3><p>如果你已安装了Git，可直接跳过，如果没有，那么建议自学安装，这里跳过。</p><h4 id="Git配置"><a href="#Git配置" class="headerlink" title="Git配置"></a>Git配置</h4><p>当安装完Git，建议配置用户信息（用户名/邮箱地址）。此后每次提交操作，均会携带这部分信息。<br><code>git config --global user.name &quot;username&quot;    git config --global user.email &quot;username@example.com&quot;</code></p><h3 id="关联GitHub"><a href="#关联GitHub" class="headerlink" title="关联GitHub"></a>关联GitHub</h3><p>为了能够在本地使用git管理github上的项目，需要进行一些配置，这里介绍SSH的方法。</p><h4 id="检查电脑是否已有SSH-KEYS"><a href="#检查电脑是否已有SSH-KEYS" class="headerlink" title="检查电脑是否已有SSH KEYS"></a>检查电脑是否已有SSH KEYS</h4><p><code>ls -al ~/.ssh</code></p><h4 id="若无SSH-KEYS，则生成新的SSH-KEYS"><a href="#若无SSH-KEYS，则生成新的SSH-KEYS" class="headerlink" title="若无SSH KEYS，则生成新的SSH KEYS"></a>若无SSH KEYS，则生成新的SSH KEYS</h4><p><code>ssh-keygen -t rsa -C &quot;your_email@example.com&quot;</code><br>默认回车，会生成两个文件：id_rsa/id_rsa.pub（前者为私钥，后者为公钥）。</p><h4 id="向SSH-AGENT添加KEY"><a href="#向SSH-AGENT添加KEY" class="headerlink" title="向SSH-AGENT添加KEY"></a>向SSH-AGENT添加KEY</h4><p>确保ssh-agent可运行<br><code>ssh-agent -s</code><br>添加SSH KEY<br><code>ssh-add ~/.ssh/id_rsa</code></p><h4 id="在GitHub添加SSH-KEY"><a href="#在GitHub添加SSH-KEY" class="headerlink" title="在GitHub添加SSH KEY"></a>在GitHub添加SSH KEY</h4><p>打开生成的SSH KEY，用编辑器打开新生成的公钥id_rsa.pub（文件默认路劲C:/Users/Administrator/.ssh/id_rsa.pub），复制里面的字符串，添加到GitHub。</p><p>测试是否关联成功<br><code>ssh -T git@github.com</code></p><h3 id="Hexo安装"><a href="#Hexo安装" class="headerlink" title="Hexo安装"></a>Hexo安装</h3><p>Hexo安装前请确保你的电脑已安装了Node.js/Git<br><code>npm install hexo-cli -g</code><br>或<br><code>cnpm i hexo-cli -g</code> (建议可使用淘宝镜像)</p><h3 id="Hexo站点构建"><a href="#Hexo站点构建" class="headerlink" title="Hexo站点构建"></a>Hexo站点构建</h3><p>选择一个空文件夹<br><code>hexo init</code><br>上一步操作需要一点时间，请耐心，完成后会自动在文件夹内建立网站所需要的所有文件。</p><p>接下来就是安装依赖了<br><code>npm install</code><br>或<br><code>cnpm i</code> (减少等待时间)</p><p>此时，网站基础demo已经构建完成，我们可通过以下两个指令运行该demo<br><code>hexo generate</code>或简写指令<code>hexo g</code> 生成站点<br><code>hexo server</code> 运行服务，可在localhost:4000 查看站点。<br>此时的站点仅是本地查看的站点，之后需部署至GitHub。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;基础配置&quot;&gt;&lt;a href=&quot;#基础配置&quot; class=&quot;headerlink&quot; title=&quot;基础配置&quot;&gt;&lt;/a&gt;基础配置&lt;/h2&gt;&lt;h3 id=&quot;创建对应仓库&quot;&gt;&lt;a href=&quot;#创建对应仓库&quot; class=&quot;headerlink&quot; title=&quot;创建对应仓
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>我的前端环境基石——nodeJS</title>
+    <link href="http://yoursite.com/2017/07/27/%E6%88%91%E7%9A%84%E5%89%8D%E7%AB%AF%E7%8E%AF%E5%A2%83%E5%9F%BA%E7%9F%B3%E2%80%94%E2%80%94nodeJS/"/>
+    <id>http://yoursite.com/2017/07/27/我的前端环境基石——nodeJS/</id>
+    <published>2017-07-27T10:07:52.000Z</published>
+    <updated>2017-11-04T08:47:39.115Z</updated>
+    
+    <content type="html"><![CDATA[<p>Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境。<br>Node.js 使用了一个事件驱动、非阻塞式 I/O 的模型，使其轻量又高效。<br>Node.js 的包管理器 npm，是全球最大的开源库生态系统。</p><p><em>嗯，上面这句是抄的，不重要</em></p><p>在前端开发工作中，很多配合工具都依赖nodejs环境，所以安装nodejs肯定是开发工作的不二选择。</p><p>nodeJs安装也比较简单，只要去<a href="https://nodejs.org/en/download/" target="_blank" rel="external">nodeJs官网</a>下载安装包（这里或推荐<a href="http://nodejs.cn/download/" target="_blank" rel="external">nodeJs中文网</a>下载）</p><p>由于很多时候从国外的npm下载包会比较慢，没有强迫症的同学可以选择安装淘宝镜像cpnm，代码：<code>npm install -g cnpm --registry=https://registry.npm.taobao.org</code>以后使用cnpm命令就会自动从淘宝镜像下载相应的包了。</p>]]></content>
+    
+    <summary type="html">
+    
+      在接触nodeJs之前，我还只能是个切图仔，会写些样式、脚本，停留在刀耕火种的时代。后面装载了nodeJs环境后，各类插件使用随心所欲，工作效率飞升。
+    
+    </summary>
+    
+      <category term="前端" scheme="http://yoursite.com/categories/big-front-end/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>工作的背包，藏着那些小而美的事物</title>
+    <link href="http://yoursite.com/2017/07/26/%E5%B7%A5%E4%BD%9C%E7%9A%84%E8%83%8C%E5%8C%85%EF%BC%8C%E8%97%8F%E7%9D%80%E9%82%A3%E4%BA%9B%E5%B0%8F%E8%80%8C%E7%BE%8E%E7%9A%84%E4%BA%8B%E7%89%A9/"/>
+    <id>http://yoursite.com/2017/07/26/工作的背包，藏着那些小而美的事物/</id>
+    <published>2017-07-26T09:12:17.000Z</published>
+    <updated>2017-11-04T08:47:39.099Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="LiceCap"><a href="#LiceCap" class="headerlink" title="LiceCap"></a>LiceCap</h2><p>我已经受够了和别人无休止的远程沟通，人与人之间的语言障碍会让我失去工作的动力。</p><p>LiceCap是一个小体积的录屏软件，可以通过<a href="https://www.cockos.com/licecap/" target="_blank" rel="external">官方网站下载</a>，是一款屏幕录制工具，支持导出<strong>GIF</strong>动画图片格式，轻量级、使用简单，录制过程中可以随意改变录屏范围。</p><h2 id="PicPick"><a href="#PicPick" class="headerlink" title="PicPick"></a>PicPick</h2><p>PicPick是一个全功能的屏幕截图工具,直观的图像编辑器,颜色选择器,颜色调色板,像素标尺,量角器,瞄准线和白板等等。这个软件的需求点是可以<strong>滚动截屏</strong>这样就可以完整地截取整个网页。该软件可通过<a href="http://ngwin.com/picpick" target="_blank" rel="external">PicPick官网下载</a>。</p><h2 id="Pocket"><a href="#Pocket" class="headerlink" title="Pocket"></a>Pocket</h2><p><a href="https://getpocket.com/" target="_blank" rel="external">Pocket</a>的主要功能就是将你要阅读或者一时没有读完的网页标记下来，接着同步到服务器端，然后你就可以在不同的设备上阅读。如果你在电脑上网的时间不多，一些东西又来不及看完，这时Pocket这款移动客户端就能按你的需求，在PC（IE，firefox，chrome等浏览器）上标记需要阅读的内容，接着可使用手机随时进行阅读！配合谷歌插件使用更方便。</p>]]></content>
+    
+    <summary type="html">
+    
+      工作是一件多么枯燥的事啊，一天天面对沉重的应用和复杂的系统，我想有一个万能的背包，随便拿出一个小东西都足够让我体验工作的美好
+    
+    </summary>
+    
+      <category term="资源" scheme="http://yoursite.com/categories/resource/"/>
+    
+    
+      <category term="工具" scheme="http://yoursite.com/tags/tools/"/>
+    
+      <category term="JavaScript" scheme="http://yoursite.com/tags/JavaScript/"/>
+    
+      <category term="编程" scheme="http://yoursite.com/tags/coding/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>工欲善其事必先利其器——Sublime Text</title>
+    <link href="http://yoursite.com/2017/07/21/%E5%B7%A5%E6%AC%B2%E5%96%84%E5%85%B6%E4%BA%8B%E5%BF%85%E5%85%88%E5%88%A9%E5%85%B6%E5%99%A8%E2%80%94%E2%80%94Sublime-Text/"/>
+    <id>http://yoursite.com/2017/07/21/工欲善其事必先利其器——Sublime-Text/</id>
+    <published>2017-07-21T03:47:50.000Z</published>
+    <updated>2017-11-04T08:47:39.115Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="安装-Installtion"><a href="#安装-Installtion" class="headerlink" title="安装(Installtion)"></a>安装(Installtion)</h3><p>下载应用程序可前往 <a href="http://www.sublimetext.com/" target="_blank" rel="external">Sublime Text 官方网站</a> (官网的下载速度较为感人，没耐心等的小伙伴可自行搜索资源)，目前最新版本为Sublime Text 3，虽然之前的许多插件都还停留在Sublime Text 2版本的支持上，个人建议升级到最新版本，毕竟后期插件也会迭代支持。<br>官网提供各系统各版本下载，但本人只用过Windows，所以就按照个人为例。</p><p>安装目录可根据自己喜好更改，我的习惯是将应用软件统一安装在D盘，记住安装地址，一会儿配置环境会用到。</p><p><img src="https://tuisemo.github.io/images/20170721_001.png" alt="安装路径"></p><p>安装时，可勾选<strong>Add to explorer context menu</strong>，这样可将快捷方式加入右键菜单中，以便快速使用Sublime Text打开文件。</p><p><img src="https://tuisemo.github.io/images/20170721_002.png" alt="快捷方式"></p><h3 id="添加Sublime-Text到环境变量"><a href="#添加Sublime-Text到环境变量" class="headerlink" title="添加Sublime Text到环境变量"></a>添加Sublime Text到环境变量</h3><p>使用<code>win + r</code>运行<code>sysdm.cpl</code>打开系统属性–高级–环境变量，找到系统变量 Path 点击编辑，将刚才的安装路径</p><p><code>D:\Program Files\Sublime Text 3</code>添加到环境变量中。</p><p><img src="https://tuisemo.github.io/images/20170721_003.png" alt="添加环境变量"></p><p>(一直使用Sublime Text也没配置变量，感觉不配置这个也用的好好的，待以后发现需求吧~)</p><h3 id="安装Package-Control"><a href="#安装Package-Control" class="headerlink" title="安装Package Control"></a>安装Package Control</h3><p>Package Control就像是nodejs里的npm，方便用户安装、管理、卸载插件，安装插件前必定先安装Package Control。<br>具体安装方法在<a href="https://packagecontrol.io/installation" target="_blank" rel="external">Package Control 官网</a>也写得比较清楚，可以在线安装也可以下载到本地再配置关联，这里主要介绍一下在线安装的方法：<br>在Sublime Text中按 ctrl + ` 调出控制台。<br>将下面的代码粘贴到控制台中，回车，等待安装完成：</p><pre><code>import urllib.request,os,hashlib; h = &apos;df21e130d211cfc94d9b0905775a7c0f&apos; + &apos;1e3d39e33b79698005270310898eea76&apos;; pf = &apos;Package Control.sublime-package&apos;; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( &apos;http://packagecontrol.io/&apos; + pf.replace(&apos; &apos;, &apos;%20&apos;)).read(); dh = hashlib.sha256(by).hexdigest(); print(&apos;Error validating download (got %s instead of %s), please try manual install&apos; % (dh, h)) if dh != h else open(os.path.join( ipp, pf), &apos;wb&apos; ).write(by)</code></pre><p><em>安装过程是网络环境而定，如果失败多次，建议尝试直接下载。</em></p><p>等待Package Control安装成功后，重启Sublime Text，使用<code>ctrl + shift + p</code>打开命令板，输入Package Control选择install package即可进入安装其他插件。</p><p><img src="https://tuisemo.github.io/images/20170721_004.png" alt="Package Control安装成功"></p><p>完成到这一步，我们基本已经可以使用Sublime Text的基础功能了，但这个编辑工具的魅力在于多样的插件，插件的合理使用才使得这个工具显得如此强大，下一步我会介绍一些平时比较常用的插件。</p><h3 id="插件安装"><a href="#插件安装" class="headerlink" title="插件安装"></a>插件安装</h3><p><a href="https://packagecontrol.io" target="_blank" rel="external">Package Control 官网</a>首页一进去，就是各个插件的实时更新列表，里面根据：最新、趋势、最流行等分类展示了各种插件，使用者可以根据各自需求安装。</p><h4 id="Emmet"><a href="#Emmet" class="headerlink" title="Emmet"></a>Emmet</h4><h4 id="HTMLBeautify"><a href="#HTMLBeautify" class="headerlink" title="HTMLBeautify"></a>HTMLBeautify</h4><h4 id="Autoprefixer"><a href="#Autoprefixer" class="headerlink" title="Autoprefixer"></a>Autoprefixer</h4><p>这个插件主要用于补全CSS样式中的各类后缀，以前写样式的时候偶尔可能会用到，不过之后改用打包构建工具之后，就不再依靠这个了。</p><h4 id="CSS3"><a href="#CSS3" class="headerlink" title="CSS3"></a>CSS3</h4><h4 id="CSScomb"><a href="#CSScomb" class="headerlink" title="CSScomb"></a>CSScomb</h4><h4 id="FileDiffs"><a href="#FileDiffs" class="headerlink" title="FileDiffs"></a>FileDiffs</h4><h4 id="HTML-CSS-JS-Prettify"><a href="#HTML-CSS-JS-Prettify" class="headerlink" title="HTML-CSS-JS Prettify"></a>HTML-CSS-JS Prettify</h4><h4 id="HTML5"><a href="#HTML5" class="headerlink" title="HTML5"></a>HTML5</h4><h4 id="jQuery"><a href="#jQuery" class="headerlink" title="jQuery"></a>jQuery</h4><h4 id="LESS"><a href="#LESS" class="headerlink" title="LESS"></a>LESS</h4><h4 id="ChineseLocalizations"><a href="#ChineseLocalizations" class="headerlink" title="ChineseLocalizations"></a>ChineseLocalizations</h4>]]></content>
+    
+    <summary type="html">
+    
+      每个人都有自己喜爱的那个她，陪你白天工作，陪你深夜加班，你们在一起的时光比情侣还漫长。有时候你们总和我说该选这个，该选那个，而我懵懵懂懂，独对她一见倾心。
+    
+    </summary>
+    
+      <category term="前端" scheme="http://yoursite.com/categories/big-front-end/"/>
+    
+    
+      <category term="工具" scheme="http://yoursite.com/tags/tools/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Markdown入门</title>
+    <link href="http://yoursite.com/2017/07/10/Markdown%E5%85%A5%E9%97%A8/"/>
+    <id>http://yoursite.com/2017/07/10/Markdown入门/</id>
+    <published>2017-07-10T03:14:05.000Z</published>
+    <updated>2017-11-04T08:47:39.084Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="标题1"><a href="#标题1" class="headerlink" title="标题1"></a>标题1</h1><h2 id="标题2"><a href="#标题2" class="headerlink" title="标题2"></a>标题2</h2><h3 id="标题3"><a href="#标题3" class="headerlink" title="标题3"></a>标题3</h3><h4 id="标题4"><a href="#标题4" class="headerlink" title="标题4"></a>标题4</h4><blockquote><p>this is blockquote.<br>this is an empty line</p><h2 id="被包含的标题2"><a href="#被包含的标题2" class="headerlink" title="被包含的标题2"></a>被包含的标题2</h2></blockquote><p>有些词汇比较<em>重要</em>。<br>需要使用<em>明显</em>的标记符来突出显示<br>后面是一个<strong>更重要</strong>的标记<br><strong>更重要的</strong></p><p>以下是三种不同的列表写法：</p><ul><li>001</li><li>002</li><li>003</li></ul><ul><li>001</li><li>002</li><li>003</li></ul><ul><li>001</li><li>002</li><li>003<br>带层级关系的无序列表：</li></ul><ul><li>001<ul><li>0001</li><li>0002</li></ul></li><li>002<ul><li>0001</li><li>0002</li><li>0003</li></ul></li><li>003</li><li>004</li></ul><p>有序列表的写法：</p><ol><li>001</li><li>002</li><li>003</li></ol><p>这是一个带<a href="http://www.baidu.com" target="_blank" rel="external">链接</a>.<br>这是一个带title的<a href="http://www.baidu.com" title="this is a title" target="_blank" rel="external">链接</a></p><p>与链接不同的是，图片写法需要在方括号前面增加！<br>例如<img src="https://unsplash.it/100/100/" alt="我是图片"></p><p>好了，现在开始我们的代码吧<br><code>&lt; this is a html template&gt;</code></p><p>创建代码区块：</p><pre><code>$.ajax({    url: &apos;https://api.douban.com/v2/movie/in_theaters&apos;,    type: &apos;GET&apos;,    dataType: &apos;jsonp&apos;,    data: {},    success: function(data) {        that.lists = [];        for (var i = 0; i &lt; data.subjects.length; i++) {            that.lists.push({                id: data.subjects[i].id,                alt: data.subjects[i].alt,                imgsrc: data.subjects[i].images.medium,                title: data.subjects[i].title,                year: data.subjects[i].year            });        }    },    erroe: function() {}});</code></pre><p>以上结束入门部分。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;标题1&quot;&gt;&lt;a href=&quot;#标题1&quot; class=&quot;headerlink&quot; title=&quot;标题1&quot;&gt;&lt;/a&gt;标题1&lt;/h1&gt;&lt;h2 id=&quot;标题2&quot;&gt;&lt;a href=&quot;#标题2&quot; class=&quot;headerlink&quot; title=&quot;标题2&quot;&gt;&lt;/a&gt;标题2&lt;/h
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>作者自白</title>
+    <link href="http://yoursite.com/2017/07/07/%E4%BD%9C%E8%80%85%E8%87%AA%E7%99%BD/"/>
+    <id>http://yoursite.com/2017/07/07/作者自白/</id>
+    <published>2017-07-07T09:38:00.000Z</published>
+    <updated>2017-11-04T08:47:39.099Z</updated>
+    
+    <content type="html"><![CDATA[<p><em>我听过一个故事，里面写着这样一句话，对我影响颇深“感性是神圣的天赋，理性则像忠诚的仆人，我们建立了一个荣耀仆人却遗忘了天赋的社会”</em></p>]]></content>
+    
+    <summary type="html">
+    
+      我听过一个故事，里面写着这样一句话，对我影响颇深“感性是神圣的天赋，理性则像忠诚的仆人，我们建立了一个荣耀仆人却遗忘了天赋的社会”
+    
+    </summary>
+    
+      <category term="闲谈" scheme="http://yoursite.com/categories/chat/"/>
+    
+    
+  </entry>
+  
+</feed>
