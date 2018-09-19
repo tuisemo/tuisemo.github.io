@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-09-18T14:36:57.522Z</updated>
+  <updated>2018-09-19T15:22:31.692Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Vue.js中watch的高级用法</title>
+    <link href="http://yoursite.com/2018/09/19/Vue-js%E4%B8%ADwatch%E7%9A%84%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/"/>
+    <id>http://yoursite.com/2018/09/19/Vue-js中watch的高级用法/</id>
+    <published>2018-09-19T15:20:44.000Z</published>
+    <updated>2018-09-19T15:22:31.692Z</updated>
+    
+    <content type="html"><![CDATA[<p>从官方文档知道，vueJS开发中视图对于数组/对象的变化捕捉需要特定的数据更新操作才会触发渲染。</p><p>那么现实开发中，我们又要如何实现对数组/对象的watch监听呢？</p><ol><li><p>普通数据的watch</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">data() &#123;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    tempData: <span class="string">'string'</span></div><div class="line">  &#125;;</div><div class="line">&#125;,</div><div class="line">watch: &#123;</div><div class="line">  <span class="comment">// vue监听普通数据</span></div><div class="line">  tempData(val) &#123;</div><div class="line">      <span class="built_in">console</span>.log(val)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></li><li><p>对象属性的watch</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">data() &#123;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    params: &#123;</div><div class="line">      orderType: [<span class="string">'1'</span>],</div><div class="line">      timeType:[]</div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line">&#125;,</div><div class="line">watch: &#123;</div><div class="line">  <span class="comment">// vue监听对象数据</span></div><div class="line">  params: &#123;</div><div class="line">    handler(newvalue, oldvalue) &#123;</div><div class="line">      <span class="built_in">console</span>.log(&#123; 监听变化: newvalue &#125;);</div><div class="line">    &#125;,</div><div class="line">    deep: <span class="literal">true</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure><p>由上面的代码可以看到，二者对数据的watch监听差异在于<code>deep</code>这个变量，根据以上问题，可以引出Vue的一些高级用法：</p></li></ol><h4 id="handler方法和immediate属性"><a href="#handler方法和immediate属性" class="headerlink" title="handler方法和immediate属性"></a>handler方法和immediate属性</h4><p>实际开发中，可以发现watch的一个特点，在Vue组件的生命周期里，最初的数据绑定阶段，watch监听并不会执行，需要等到数据发生改变时才会执行watch监听的相应计算。如果希望在初始化阶段就执行watch监听该如何处理呢？其实修改一下watch的写法就可以实现，(以之前的代码为例)代码如下：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">data() &#123;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    params: &#123;</div><div class="line">      orderType: [<span class="string">'1'</span>],</div><div class="line">      timeType:[]</div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line">&#125;,</div><div class="line">watch: &#123;</div><div class="line">  <span class="comment">// vue监听对象数据</span></div><div class="line">  params: &#123;</div><div class="line">    handler(newvalue, oldvalue) &#123;</div><div class="line">      <span class="built_in">console</span>.log(&#123; 监听变化: newvalue &#125;);</div><div class="line">    &#125;,</div><div class="line">    immediate: <span class="literal">true</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure><p>上面的代码可以发现，相比原来的watch，改良后的watch多了handler和immediate，其实普通的watch方法里默认写的就是handler函数，经过vuejs的编译之后就会生成handler。</p><p>而<code>immediate:true</code>则表示当watch监听的变量被声明之后，会立即去执行一次handler方法。默认为<code>immediate:false</code>这也是之所以第一次数据赋值时并不会触发watch的原因了。</p><h4 id="deep属性"><a href="#deep属性" class="headerlink" title="deep属性"></a>deep属性</h4><p>watch 里面还有一个属性 <code>deep</code>，默认值是 <code>false</code>，代表是否深度监听。受限于Vue对于对象/数组的监听限制，Vue无法检测到对象属性的添加或删除，所以监听对象的属性变化就受到限制，但是添加deep配置就可解决该问题了！</p>]]></content>
+    
+    <summary type="html">
+    
+      一招解决Vue对数组/对象的深度监听
+    
+    </summary>
+    
+      <category term="前端" scheme="http://yoursite.com/categories/big-front-end/"/>
+    
+    
+      <category term="Vue" scheme="http://yoursite.com/tags/Vue/"/>
+    
+  </entry>
   
   <entry>
     <title>JSON Server——30秒搭建一个本地的REST API服</title>
