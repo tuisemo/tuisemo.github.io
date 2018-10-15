@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://tuisemo.github.io/"/>
-  <updated>2018-10-09T13:57:57.241Z</updated>
+  <updated>2018-10-15T13:08:09.720Z</updated>
   <id>https://tuisemo.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>新宠儿VSCode的一些实用插件</title>
+    <link href="https://tuisemo.github.io/2018/10/15/%E6%96%B0%E5%AE%A0%E5%84%BFVSCode%E7%9A%84%E4%B8%80%E4%BA%9B%E5%AE%9E%E7%94%A8%E6%8F%92%E4%BB%B6/"/>
+    <id>https://tuisemo.github.io/2018/10/15/新宠儿VSCode的一些实用插件/</id>
+    <published>2018-10-15T13:07:29.000Z</published>
+    <updated>2018-10-15T13:08:09.720Z</updated>
+    
+    <content type="html"><![CDATA[<p>早在2016年就不时听到微软家的Visual Studio Code（下文简称VS Code），以前独自开发一个sublime就够了，后面因为公司项目原因不得已尝试了下IDEA，感觉还是太沉重了，而且还丑！今年因为参与构建公司产品涉及了前端服务，因此转用了VSCode，体验了下便爱不释手！这里分享一些比较实用的插件吧。</p><h4 id="插件："><a href="#插件：" class="headerlink" title="插件："></a>插件：</h4><ul><li><p>Auto rename tag</p><blockquote><p>在HTML, XML文件中修改标签时，直接在前标签名上修改，插件会自动修改后标签名。</p></blockquote></li><li><p>Beautify</p><blockquote><p>HTML、CSS、JS、JSON语法高亮</p></blockquote></li><li><p>Chinese Language Pack for Visual Studio Code</p><blockquote><p>汉化中文包</p></blockquote></li><li><p>CSS Peek</p><blockquote><p>右键选择“ Go to Definition 和 Peek definition ”选项，可追踪至样式表中 CSS 类和 ids 定义的地方</p></blockquote></li><li><p>ESLint 【重磅】</p><blockquote><p>安装插件成功后重启VSCode，打开”设置”，打开“settings.json”添加以下配置内容</p><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&gt; "eslint.validate": [</div><div class="line">&gt;     "javascript",</div><div class="line">&gt;     "javascriptreact",</div><div class="line">&gt;     "html",</div><div class="line">&gt;     &#123; "language": "vue", "autoFix": true &#125;</div><div class="line">&gt; ],</div><div class="line">&gt; "eslint.options":&#123; "plugins": ["html"] &#125;,</div><div class="line">&gt; "eslint.autoFixOnSave": true,</div><div class="line">&gt;</div></pre></td></tr></table></figure></blockquote><p>&gt;</p><blockquote><p>通常情况下，当我们需要根据ESLint的相关错误提示手动修改并保存文件。然而VSCode提供了<code>&quot;eslint.autoFixOnSave&quot;: true,</code>这个配置项，当我们直接保存文件时，VSCode会自动根据项目下的<code>.eslintrc.js</code>文件中的相关配置对代码进行格式化修复。这个配置项在开发中很实用！</p></blockquote></li><li><p>HTML Boilerplate</p><blockquote><p>HTML 模板扩展将不必手动写入新的 HTML 文档的 <code>head</code> 和 <code>body</code> 标签。只需在空文件中输入 <code>html</code> ，按 Tab 键即可生成干净的文档结构。(这一个功能貌似Emmet也提供了？)</p></blockquote></li><li><p>HTML CSS Support</p><blockquote><p>在编写样式表的时候，自动补全功能</p></blockquote></li><li><p>HTML Snippets</p><blockquote><p>html自动补全提示</p></blockquote></li><li><p>HTML Hint</p><blockquote><p>html代码检测</p></blockquote></li><li><p>jQuery Code Snippets</p><blockquote><p>juqery自动补全提示</p></blockquote></li><li><p>Mithril Emmet</p><blockquote><p>代码快速编写工具，装机必备，不解释。</p></blockquote></li><li><p>Open in Browser </p></li><li><p>Path intellisense</p><blockquote><p>自动路由补全</p></blockquote></li><li><p>Quokka.js</p><blockquote><p>Quokka 是一个调试工具插件，能够根据你正在编写的代码提供实时反馈（我基本没用到这个插件）</p></blockquote></li><li><p>Vetur【重磅】</p><blockquote><p>vue语法下代码补全工具，据说是综合比较下，目前VSCode上面最好的Vue插件了，配合ESLint效果无敌！</p></blockquote></li><li><p>Vue VSCode Snippets</p><blockquote><p>很全面的vue代码片段</p></blockquote></li><li><p>VueHelper</p><blockquote><p>可能是目前vscode最好的vue代码提示插件，不仅包括了vue2所有api，还含有vue-router2和vuex2的代码提示</p></blockquote></li><li><p>wpy-beautify</p><blockquote><p>wepy脚手架下开发小程序，可使用该插件来实现代码格式优化</p></blockquote></li><li><p>Monokai主题</p></li><li><p>vscode-icons</p><blockquote><p>图标样式，必备插件，从此我的工作界面都比别人帅！</p></blockquote></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;早在2016年就不时听到微软家的Visual Studio Code（下文简称VS Code），以前独自开发一个sublime就够了，后面因为公司项目原因不得已尝试了下IDEA，感觉还是太沉重了，而且还丑！今年因为参与构建公司产品涉及了前端服务，因此转用了VSCode，体验
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>巧用v-model实现组件间数据双向绑定</title>
